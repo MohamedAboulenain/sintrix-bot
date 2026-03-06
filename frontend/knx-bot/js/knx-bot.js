@@ -343,5 +343,15 @@ function _esc(str) {
     .replace(/"/g, '&quot;');
 }
 
+// ── Mobile keyboard fix (Visual Viewport API) ─────────────────
+// iOS Safari doesn't resize the layout viewport when the soft keyboard opens.
+// visualViewport.height gives the actual usable height on both iOS and Android.
+if (window.visualViewport) {
+  const _setAppHeight = () =>
+    document.documentElement.style.setProperty('--app-height', window.visualViewport.height + 'px');
+  window.visualViewport.addEventListener('resize', _setAppHeight);
+  _setAppHeight();
+}
+
 // ── Init ──────────────────────────────────────────────────────
 checkHealth();
