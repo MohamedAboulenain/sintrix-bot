@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sintrix — Engineering KNX Systems</title>
+  <meta name="description" content="Sintrix — Engineering KNX Systems powered by KNX technology." />
+  <link rel="stylesheet" href="/knx-bot/css/main.css" />
+  <style>
+    /* ── Hero ──────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a2f3a 50%, #0a0e27 100%);
+      padding-top: var(--nav-height);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(34, 211, 238, 0.13) 0%, transparent 70%);
+      border-radius: 50%;
+      top: -180px;
+      right: -160px;
+      animation: orb-pulse 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.09) 0%, transparent 70%);
+      border-radius: 50%;
+      bottom: -80px;
+      left: -80px;
+      animation: orb-pulse 6s ease-in-out infinite reverse;
+      pointer-events: none;
+    }
+
+    @keyframes orb-pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: 0.75;
+      }
+    }
+
+    canvas#hero-particles {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 860px;
+      padding: 40px 24px;
+    }
+
+    .hero-logo {
+      font-size: 5rem;
+      font-weight: 700;
+      letter-spacing: 5px;
+      margin-bottom: 1.6rem;
+      background: linear-gradient(90deg, #22d3ee 0%, #06b6d4 55%, #ffffff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 32px rgba(34, 211, 238, 0.4));
+    }
+
+    .hero-tagline {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+      background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      padding-bottom: 0.2rem;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.4rem;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 38px;
+      background: linear-gradient(135deg, var(--cyan) 0%, var(--cyan-dim) 100%);
+      color: var(--bg-primary);
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 8px 28px rgba(34, 211, 238, 0.35);
+      transition: transform 0.25s, box-shadow 0.25s;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(34, 211, 238, 0.5);
+    }
+
+    .hero-cta svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* ── Features section ─────────────────────────────────────── */
+    .features-section {
+      padding: 100px 24px;
+      background: #0f1229;
+      position: relative;
+    }
+
+    .features-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--cyan) 50%, transparent 100%);
+    }
+
+    .section-title {
+      font-size: 2.4rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.8rem;
+      background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: rgba(34, 211, 238, 0.04);
+      border: 1px solid var(--cyan-border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(34, 211, 238, 0.12);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 14px;
+    }
+
+    .feature-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--cyan);
+      margin-bottom: 8px;
+    }
+
+    .feature-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── Contact section ──────────────────────────────────────── */
+    .contact-section {
+      padding: 100px 24px;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a2f3a 100%);
+    }
+
+    .contact-inner {
+      text-align: center;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    .contact-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .contact-text {
+      color: #a5f3fc;
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+    }
+
+    .email-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 38px;
+      background: rgba(34, 211, 238, 0.08);
+      border: 2px solid var(--cyan);
+      border-radius: 50px;
+      color: var(--cyan);
+      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 600;
+      transition: background 0.3s, transform 0.25s, box-shadow 0.3s;
+    }
+
+    .email-btn:hover {
+      background: rgba(34, 211, 238, 0.18);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(34, 211, 238, 0.3);
+    }
+
+    .email-btn svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ───────────────────────────────────────────────── */
+    footer {
+      padding: 36px 24px;
+      text-align: center;
+      background: var(--bg-primary);
+      border-top: 1px solid rgba(34, 211, 238, 0.08);
+    }
+
+    .footer-text {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    .footer-brand {
+      color: var(--cyan);
+      font-weight: 600;
+    }
+
+    /* ── Responsive ───────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .hero-logo {
+        font-size: 3.5rem;
+      }
+
+      .hero-tagline {
+        font-size: 2.1rem;
+      }
+
+      .section-title {
+        font-size: 1.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-logo {
+        font-size: 2.8rem;
+        letter-spacing: 3px;
+      }
+
+      .hero-tagline {
+        font-size: 1.6rem;
+      }
+
+      .hero-cta {
+        padding: 13px 28px;
+        font-size: 0.92rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="site-nav">
+    <a href="/" class="nav-brand">SINTRIX</a>
+    <div class="nav-links">
+      <a href="/" class="nav-link active">Home</a>
+      <a href="/knx-bot" class="nav-link nav-link-cta">KNX Bot</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <canvas id="hero-particles"></canvas>
+    <div class="hero-content">
+      <div class="hero-logo">SINTRIX</div>
+      <h1 class="hero-tagline">WHERE SMART BUILDINGS BEGIN</h1>
+      <p class="hero-sub">
+        Coming Soon...
+      </p>
+      <a href="/knx-bot" class="hero-cta">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863
+                 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3
+                 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+        Launch KNX Bot
+      </a>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features-section">
+    <div class="container" style="max-width:1100px;margin:0 auto;">
+      <h2 class="section-title">What's Inside</h2>
+      <p class="section-sub">Everything you need to work with KNX specifications</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📚</div>
+          <div class="feature-title">KNX Knowledge Base</div>
+          <p class="feature-desc">
+            Full KNX specification library loaded and ready — from TP wiring to
+            KNX Secure, ETS configuration, and IP networking.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📎</div>
+          <div class="feature-title">Upload Your Documents</div>
+          <p class="feature-desc">
+            Upload your own PDFs or Excel files and query them alongside the KNX
+            knowledge base in Combined mode.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📄</div>
+          <div class="feature-title">Generate PDFs</div>
+          <p class="feature-desc">
+            Describe what you need — checklists, reports, summaries — and download
+            a professionally formatted PDF instantly.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <div class="feature-title">Generate Excel Files</div>
+          <p class="feature-desc">
+            Request structured tables, device lists, or group address mappings and
+            download a formatted Excel workbook.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact-section">
+    <div class="contact-inner">
+      <h2 class="contact-title">Get In Touch</h2>
+      <p class="contact-text">
+        Questions about Sintrix or KNX automation? We'd love to hear from you.
+      </p>
+      <a href="mailto:info@sintrix.io" class="email-btn">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0
+                 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        info@sintrix.io
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p class="footer-text">
+      &copy; 2026 <span class="footer-brand">Sintrix</span>. All rights reserved.
+    </p>
+  </footer>
+
+  <script>
+    /* ── Connected Particle Network (Synced & Persistent) ────── */
+    (function () {
+      const canvas = document.getElementById('hero-particles');
+      const ctx = canvas.getContext('2d');
+      let W, H, particles = [], mouse = { x: -9999, y: -9999 };
+      const STORAGE_KEY = 'sintrix_particle_state';
+
+      const COUNT = 100, SPEED = 0.15, CONNECT_DIST = 140, MOUSE_REPEL = 100;
+
+      function resize() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      }
+
+      function mkParticle(existing = null) {
+        return {
+          x: existing ? existing.x : Math.random() * W,
+          y: existing ? existing.y : Math.random() * H,
+          vx: existing ? existing.vx : (Math.random() - 0.5) * SPEED,
+          vy: existing ? existing.vy : (Math.random() - 0.5) * SPEED,
+          r: existing ? existing.r : Math.random() * 1.8 + 0.6,
+          alpha: existing ? existing.alpha : Math.random() * 0.5 + 0.2
+        };
+      }
+
+      function init() {
+        resize();
+        const stored = sessionStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          try {
+            const data = JSON.parse(stored);
+            particles = data.map(p => mkParticle(p));
+          } catch (e) {
+            particles = Array.from({ length: COUNT }, mkParticle);
+          }
+        } else {
+          particles = Array.from({ length: COUNT }, mkParticle);
+        }
+      }
+
+      function saveState() {
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(particles.map(p => ({
+          x: p.x, y: p.y, vx: p.vx, vy: p.vy, r: p.r, alpha: p.alpha
+        }))));
+      }
+
+      let frameCount = 0;
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        // Radial glow orbs (Synced with Reference)
+        const orbs = [
+          { x: W * 0.2, y: H * 0.3, r: 280, c: 'rgba(34,211,238,0.04)' },
+          { x: W * 0.8, y: H * 0.7, r: 220, c: 'rgba(6,182,212,0.03)' }
+        ];
+        orbs.forEach(o => {
+          const g = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, o.r);
+          g.addColorStop(0, o.c);
+          g.addColorStop(1, 'transparent');
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        // Move & repel
+        particles.forEach(p => {
+          const dx = p.x - mouse.x, dy = p.y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < MOUSE_REPEL) {
+            const force = (MOUSE_REPEL - dist) / MOUSE_REPEL * 0.8;
+            p.vx += (dx / dist) * force;
+            p.vy += (dy / dist) * force;
+          }
+          // Damping
+          p.vx *= 0.98; p.vy *= 0.98;
+          p.x += p.vx; p.y += p.vy;
+
+          // Wrap around screen
+          if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+          if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+        });
+
+        // Connections
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const a = particles[i], b = particles[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d < CONNECT_DIST) {
+              ctx.strokeStyle = `rgba(34,211,238,${0.15 * (1 - d / CONNECT_DIST)})`;
+              ctx.lineWidth = 0.7;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        // Dots
+        particles.forEach(p => {
+          ctx.fillStyle = `rgba(34,211,238,${p.alpha})`;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        if (frameCount++ % 10 === 0) saveState();
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', resize);
+      window.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      });
+      window.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+      init();
+      draw();
+    })();
+  </script>
+
+</body>
+
+</html>

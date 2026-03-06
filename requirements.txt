@@ -1,0 +1,32 @@
+# Web framework
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+gunicorn==23.0.0
+python-multipart==0.0.20
+
+# Settings
+pydantic-settings==2.7.0
+pydantic==2.10.4
+
+# LLM
+openai==1.58.1
+
+# NotebookLM (unofficial wrapper)
+notebooklm-py==0.3.3
+
+# PDF processing
+PyMuPDF==1.25.1
+reportlab==4.2.5
+
+# Excel processing
+openpyxl==3.1.5
+
+# HTTP client (notebooklm-py dependency)
+httpx==0.27.2
+
+# Browser automation (notebooklm-py Google auth)
+playwright==1.49.1
+
+# Utilities
+python-dotenv==1.0.1
+aiofiles==24.1.0

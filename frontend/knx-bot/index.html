@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sintrix KNX Bot — KNX Expert Assistant</title>
+  <meta name="description" content="AI-powered KNX building automation expert by Sintrix." />
+  <base href="/knx-bot/" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/knx-bot.css" />
+  <script>
+    /* API base — same origin in production; override for local cross-origin dev */
+    window.KNX_API_BASE = '';
+  </script>
+</head>
+
+<body>
+
+  <!-- Particle background -->
+  <canvas id="bot-particles"></canvas>
+
+  <!-- Navigation -->
+  <nav class="site-nav">
+    <a href="/" class="nav-brand">SINTRIX</a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/knx-bot" class="nav-link nav-link-cta active"
+        style="-webkit-text-fill-color:var(--bg-primary);color:var(--bg-primary);">KNX Bot</a>
+    </div>
+  </nav>
+
+  <!-- Drop overlay (drag-and-drop target) -->
+  <div class="drop-overlay" id="drop-overlay">
+    <div class="drop-overlay-icon">📂</div>
+    <div>Drop your PDF or Excel file here</div>
+  </div>
+
+  <!-- App shell -->
+  <div class="bot-app">
+
+    <!-- Bot header -->
+    <header class="bot-header">
+      <div class="bot-header-left">
+        <div class="bot-logo-badge">KNX</div>
+        <div>
+          <div class="bot-title">Sintrix KNX Bot</div>
+          <div class="bot-subtitle">KNX Building Automation Expert</div>
+        </div>
+      </div>
+      <div class="bot-status">
+        <div class="status-dot" id="status-dot"></div>
+        <span id="status-text">Connecting…</span>
+      </div>
+    </header>
+
+    <!-- Mode bar -->
+    <div class="mode-bar">
+      <span class="mode-label">Mode:</span>
+      <button class="mode-btn active" data-mode="knx">🗄 KNX Docs</button>
+      <button class="mode-btn" data-mode="user" id="mode-user" disabled>📄 My Document</button>
+      <button class="mode-btn" data-mode="combined" id="mode-combined" disabled>⚡ Combined</button>
+    </div>
+
+    <!-- Chat messages -->
+    <div class="chat-window" id="chat-window">
+      <!-- Welcome -->
+      <div class="welcome" id="welcome">
+        <div class="welcome-icon">🤖</div>
+        <h2>Sintrix KNX Bot</h2>
+        <p>
+          Ask anything about KNX building automation — group addresses, ETS software,
+          TP/RF/IP media, commissioning, HVAC, lighting, security, and more.
+          Upload your own documents to query alongside the full KNX knowledge base.
+        </p>
+        <div class="chips" id="chips">
+          <button class="chip">What is KNX TP and how does it work?</button>
+          <button class="chip">How do I set up group addresses in ETS?</button>
+          <button class="chip">Explain KNX Secure authentication</button>
+          <button class="chip">HVAC integration with KNX controllers</button>
+          <button class="chip">What are the KNX certification levels?</button>
+          <button class="chip">Generate a KNX project commissioning checklist PDF</button>
+        </div>
+      </div>
+    </div><!-- /chat-window -->
+
+    <!-- Input area -->
+    <div class="input-area">
+
+      <!-- Toolbar -->
+      <div class="input-toolbar">
+        <button class="toolbar-btn" id="upload-btn">
+          📎 Upload
+        </button>
+
+        <div class="upload-badge" id="upload-badge" style="display:none;">
+          <span class="badge-name" id="badge-name">file.pdf</span>
+          <div class="badge-progress">
+            <div class="badge-progress-bar" id="badge-progress-bar"></div>
+          </div>
+          <button class="badge-remove" id="badge-remove" title="Remove file">✕</button>
+        </div>
+
+      </div>
+
+      <!-- Text input -->
+      <div class="input-row">
+        <textarea id="chat-input" class="chat-input" placeholder="Ask a KNX question, or describe what to generate…"
+          rows="1" autocomplete="off" spellcheck="false"></textarea>
+        <button class="send-btn" id="send-btn" title="Send (Enter)">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+              d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+          </svg>
+        </button>
+      </div>
+
+    </div><!-- /input-area -->
+
+  </div><!-- /bot-app -->
+
+  <!-- Hidden file input -->
+  <input type="file" id="file-input" accept=".pdf,.xlsx,.xls" style="display:none" />
+
+  <!-- Scripts (order matters: particles first, then app modules) -->
+  <script src="js/particles.js"></script>
+  <script type="module" src="js/citation-renderer.js"></script>
+  <script type="module" src="js/file-upload.js"></script>
+  <script type="module" src="js/knx-bot.js"></script>
+
+</body>
+
+</html>

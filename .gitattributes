@@ -1,0 +1,4 @@
+* text=auto
+*.sh text eol=lf
+deploy/setup.sh text eol=lf
+deploy/update.sh text eol=lf
