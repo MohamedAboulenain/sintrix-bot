@@ -56,7 +56,8 @@ body::after {
   z-index: 1;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100vh;    /* fallback */
+  height: 100dvh;   /* dynamic — shrinks when mobile keyboard opens */
   max-width: 940px;
   margin: 0 auto;
   padding-top: var(--nav-height);
@@ -430,6 +431,7 @@ body::after {
 /* ── Input area ───────────────────────────────────────────────── */
 .input-area {
   padding: 12px 16px 16px;
+  padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
   border-top: 1px solid var(--cyan-border);
   background: rgba(10,14,39,0.88);
   backdrop-filter: blur(10px);
@@ -644,10 +646,35 @@ body::after {
 
 /* ── Responsive ───────────────────────────────────────────────── */
 @media (max-width: 600px) {
-  .bot-header     { padding: 10px 14px; }
-  .chat-window    { padding: 16px 12px; }
-  .input-area     { padding: 10px 12px 14px; }
-  .msg-body       { max-width: 88%; }
-  .mode-bar       { padding: 8px 12px; }
-  .input-toolbar  { gap: 6px; }
+  /* Header — compact, hide subtitle */
+  .bot-header    { padding: 8px 12px; }
+  .bot-subtitle  { display: none; }
+  .bot-logo-badge { width: 32px; height: 32px; font-size: 11px; }
+  .bot-title     { font-size: 0.9rem; }
+  .bot-status    { font-size: 0.72rem; }
+  .status-dot    { width: 7px; height: 7px; }
+
+  /* Mode bar — hide "Mode:" label, tighter */
+  .mode-bar      { padding: 6px 10px; gap: 5px; }
+  .mode-label    { display: none; }
+  .mode-btn      { padding: 5px 11px; font-size: 0.78rem; }
+
+  /* Chat window */
+  .chat-window   { padding: 12px 10px; gap: 14px; }
+  .msg-body      { max-width: 88%; }
+  .msg-bubble    { font-size: 0.88rem; padding: 10px 13px; }
+
+  /* Welcome screen — compact */
+  .welcome       { padding: 20px 10px; gap: 10px; }
+  .welcome-icon  { width: 44px; height: 44px; font-size: 1.3rem; }
+  .welcome h2    { font-size: 1.15rem; }
+  .welcome p     { font-size: 0.85rem; }
+  .chip          { font-size: 0.78rem; padding: 6px 11px; }
+
+  /* Input area — safe area + compact toolbar */
+  .input-area    { padding: 8px 10px; padding-bottom: max(10px, env(safe-area-inset-bottom, 10px)); }
+  .input-toolbar { gap: 6px; margin-bottom: 7px; }
+  .toolbar-btn   { padding: 5px 10px; font-size: 0.78rem; }
+  .chat-input    { font-size: 0.88rem; padding: 10px 13px; }
+  .send-btn      { width: 40px; height: 40px; }
 }
