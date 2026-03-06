@@ -58,17 +58,16 @@ body::after {
 }
 
 .bot-app {
-  position: relative;
+  position: fixed;          /* fixed within the visual viewport — iOS always keeps
+                               this above the keyboard, no JS needed */
+  top: var(--nav-height);   /* start below the nav bar */
+  left: 0;
+  right: 0;
+  bottom: 0;                /* ends at the top of the keyboard on iOS */
   z-index: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden;                  /* clip children to this box */
-  height: 100vh;                     /* ultimate fallback */
-  height: 100dvh;                    /* modern browsers */
-  height: var(--app-height, 100dvh); /* JS-set via visualViewport for iOS/Android keyboard */
-  max-width: 940px;
-  margin: 0 auto;
-  padding-top: var(--nav-height);
+  overflow: hidden;
 }
 
 /* ── Bot header ───────────────────────────────────────────────── */
