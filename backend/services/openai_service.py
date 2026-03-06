@@ -46,45 +46,6 @@ _SYSTEM_GENERATE_EXCEL = (
 )
 
 
-async def query_document(message: str, doc_text: str, filename: str) -> str:
-    """Answer a question about a user-uploaded document."""
-    client = _get_client()
-    context = f"Document: {filename}\n\n{doc_text[:12_000]}"
-    response = await client.chat.completions.create(
-        model=settings.openai_model,
-        messages=[
-            {"role": "system", "content": _SYSTEM_KNX},
-            {"role": "user", "content": f"Document context:\n{context}\n\nQuestion: {message}"},
-        ],
-        stream=False,
-        max_tokens=1500,
-    )
-    return response.choices[0].message.content or ""
-
-
-async def query_combined(message: str, nlm_answer: str, doc_text: str, filename: str) -> str:
-    """Merge NotebookLM answer with user-document context."""
-    client = _get_client()
-    doc_snippet = doc_text[:6_000]
-    prompt = (
-        f"KNX specification answer:\n{nlm_answer}\n\n"
-        f"User document ({filename}):\n{doc_snippet}\n\n"
-        f"Question: {message}\n\n"
-        "Combine the above sources into a single comprehensive answer. "
-        "Clearly indicate where each piece of information comes from."
-    )
-    response = await client.chat.completions.create(
-        model=settings.openai_model,
-        messages=[
-            {"role": "system", "content": _SYSTEM_KNX},
-            {"role": "user", "content": prompt},
-        ],
-        stream=False,
-        max_tokens=2000,
-    )
-    return response.choices[0].message.content or ""
-
-
 async def generate_content(prompt: str, doc_text: str | None = None) -> str:
     """Generate structured text content for PDF creation."""
     client = _get_client()

@@ -293,35 +293,8 @@ function _appendBotTyping() {
   return { bubble, bodyEl: body };
 }
 
-function _appendBotMessage(text, citations) {
-  const msg = document.createElement('div');
-  msg.className = 'msg bot';
-
-  const body = document.createElement('div');
-  body.className = 'msg-body';
-
-  const bubble = document.createElement('div');
-  bubble.className = 'msg-bubble';
-  bubble.innerHTML = _markdownToHtml(text);
-
-  body.appendChild(bubble);
-  if (citations && citations.length > 0) renderCitations(citations, body);
-
-  msg.innerHTML = `<div class="msg-avatar">KNX</div>`;
-  msg.appendChild(body);
-  chatWindow.appendChild(msg);
-  _scrollToBottom();
-}
-
 function _scrollToBottom() {
   chatWindow.scrollTop = chatWindow.scrollHeight;
-}
-
-function _flashPlaceholder(msg) {
-  chatInput.placeholder = msg;
-  setTimeout(() => {
-    chatInput.placeholder = 'Ask a KNX question, or describe what to generate…';
-  }, 2500);
 }
 
 // ── Lightweight markdown → HTML ───────────────────────────────

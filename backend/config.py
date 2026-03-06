@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     max_upload_mb: int = 20
 
     # Server
-    cors_origins: str = "http://localhost:8000,http://localhost:5500,https://sintrix.io"
+    cors_origins: str = "http://localhost:8000,https://sintrix.io"
     log_level: str = "INFO"
 
     def cors_origins_list(self) -> list[str]:

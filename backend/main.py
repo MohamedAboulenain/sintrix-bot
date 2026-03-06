@@ -54,7 +54,8 @@ app = FastAPI(
     title="Sintrix KNX Bot",
     description="KNX building automation expert — AI chat assistant",
     version="1.0.0",
-    docs_url="/docs",
+    docs_url=None,    # disabled in production
+    redoc_url=None,
     lifespan=lifespan,
 )
 

@@ -31,6 +31,11 @@ def create_session(filename: str, text: str, meta: dict) -> str:
 
 
 def load_session(session_id: str) -> dict | None:
+    # Reject anything that isn't a valid UUID to prevent path traversal
+    try:
+        uuid.UUID(session_id)
+    except (ValueError, AttributeError):
+        return None
     path = _session_path(session_id)
     if not path.exists():
         return None

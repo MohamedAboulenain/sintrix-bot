@@ -8,7 +8,6 @@
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   let W, H, particles = [], mouse = { x: -9999, y: -9999 };
-  const STORAGE_KEY = 'sintrix_particle_state';
 
   const COUNT = 100, SPEED = 0.15, CONNECT_DIST = 140, MOUSE_REPEL = 100;
 

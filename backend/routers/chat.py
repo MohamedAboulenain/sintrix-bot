@@ -17,7 +17,7 @@ import logging
 
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, field_validator
 
 from backend.services import notebooklm_service, openai_service
 from backend.session.manager import load_session
@@ -27,10 +27,26 @@ router = APIRouter()
 
 
 class ChatRequest(BaseModel):
-    message: str
+    message: str = Field(..., max_length=4000)
     mode: str = "knx"           # "knx" | "user" | "combined"
     session_id: str | None = None
     history: list[dict] | None = None  # [{role, content}, ...]
+
+    @field_validator("history")
+    @classmethod
+    def validate_history(cls, v: list[dict] | None) -> list[dict] | None:
+        if v is None:
+            return v
+        cleaned = []
+        for entry in v[:20]:  # cap server-side too
+            if not isinstance(entry, dict):
+                continue
+            role = entry.get("role")
+            content = entry.get("content")
+            if role not in ("user", "assistant") or not isinstance(content, str):
+                continue
+            cleaned.append({"role": role, "content": content[:8000]})
+        return cleaned
 
 
 @router.post("/chat")

@@ -23,8 +23,9 @@ def extract_text(data: bytes) -> tuple[str, int]:
                 rows.append("\t".join(cells))
         if rows:
             parts.append(f"Sheet: {sheet.title}\n" + "\n".join(rows))
+    sheet_count = len(wb.sheetnames)
     wb.close()
-    return "\n\n".join(parts), len(wb.sheetnames)
+    return "\n\n".join(parts), sheet_count
 
 
 def generate_excel(title: str, content: str) -> bytes:
