@@ -11,16 +11,16 @@
 }
 
 /* ── App shell ────────────────────────────────────────────────── */
-html { height: 100%; overflow: hidden; }
+html {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none; /* prevents iOS rubber-band on the document */
+}
 
 body {
   height: 100%;
   overflow: hidden;
-  /* Prevents iOS Safari rubber-band / overscroll outside the app */
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
+  overscroll-behavior: none;
   background: linear-gradient(135deg, #0a0e27 0%, #1a2f3a 50%, #0a0e27 100%);
 }
 
@@ -62,6 +62,7 @@ body::after {
   z-index: 1;
   display: flex;
   flex-direction: column;
+  overflow: hidden;                  /* clip children to this box */
   height: 100vh;                     /* ultimate fallback */
   height: 100dvh;                    /* modern browsers */
   height: var(--app-height, 100dvh); /* JS-set via visualViewport for iOS/Android keyboard */
@@ -184,6 +185,8 @@ body::after {
 .chat-window {
   flex: 1;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* smooth momentum scroll on iOS */
+  overscroll-behavior: contain;      /* stop scroll propagating to body on iOS */
   padding: 24px 20px;
   display: flex;
   flex-direction: column;
