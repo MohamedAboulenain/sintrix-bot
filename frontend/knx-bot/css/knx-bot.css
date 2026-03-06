@@ -285,7 +285,7 @@ body::after {
   align-self: flex-end;
 }
 
-.msg.bot  .msg-avatar { background: linear-gradient(135deg, var(--cyan), #0ea5e9); color: var(--bg-primary); }
+.msg.bot  .msg-avatar { background: linear-gradient(135deg, var(--cyan), #0ea5e9); color: var(--bg-primary); font-size: 1.15rem; }
 .msg.user .msg-avatar { background: linear-gradient(135deg, #6366f1, #8b5cf6);     color: #fff; }
 
 .msg-body {

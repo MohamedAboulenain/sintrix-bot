@@ -286,7 +286,7 @@ function _appendBotTyping() {
   bubble.innerHTML = `<div class="typing-dots"><span></span><span></span><span></span></div>`;
 
   body.appendChild(bubble);
-  msg.innerHTML = `<div class="msg-avatar">KNX</div>`;
+  msg.innerHTML = `<div class="msg-avatar">🤖</div>`;
   msg.appendChild(body);
   chatWindow.appendChild(msg);
   _scrollToBottom();
